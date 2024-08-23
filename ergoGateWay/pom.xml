@@ -55,6 +55,12 @@
 		<dependency>
 			<groupId>com.netflix.eureka</groupId>
 			<artifactId>eureka-client-jersey3</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
