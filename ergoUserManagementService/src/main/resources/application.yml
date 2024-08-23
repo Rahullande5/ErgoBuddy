@@ -1,0 +1,5 @@
+server:
+  port: 9187
+spring:
+  application:
+    name: ergoUserManagementService

@@ -1,0 +1,5 @@
+server:
+  port: 8178
+spring:
+  application:
+    name: ergoGateWay
