@@ -33,6 +33,11 @@ public class ErgoUserServiceImpl implements ErgoUserService {
 	public UserDetails updateErgoUser(final Long gpnID, final UserDetails userDetails) {
 		UserDetails userDetalle = ergoUserRepository.findById(gpnID).orElse(null);
 		if (userDetalle != null) {
+			userDetalle.setErgoUserName(userDetails.getErgoUserName());
+			userDetalle.setErgoUserPassword(userDetails.getErgoUserPassword());
+			userDetalle.setErgoUserEmail(userDetails.getErgoUserEmail());
+			userDetalle.setErgoUserDesignation(userDetails.getErgoUserDesignation());
+			userDetalle.setIsCustomized(userDetails.getIsCustomized());
 			return ergoUserRepository.save(userDetalle);
 		}
 		return null;
