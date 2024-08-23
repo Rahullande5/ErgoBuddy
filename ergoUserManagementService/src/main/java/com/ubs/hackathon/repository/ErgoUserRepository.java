@@ -8,5 +8,5 @@ import com.ubs.hackathon.model.UserDetails;
 @Repository
 public interface ErgoUserRepository extends JpaRepository<UserDetails, Long> {
 
-	UserDetails findByErgoUsername(String userName);
+	UserDetails findByErgoUserName(String userName);
 }

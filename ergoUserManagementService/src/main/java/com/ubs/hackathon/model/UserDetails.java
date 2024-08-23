@@ -21,15 +21,21 @@ public class UserDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long gpnID;
 
-	@Column(nullable = false, unique = true)
-	private String userName;
+	@Column(name = "ERGO_USER_NAME",nullable = false, unique = true)
+	private String ergoUserName;
 
-	@Column(nullable = false)
-	private String userPassword;
+	@Column(name = "ERGO_USER_PASS",nullable = false)
+	private String ergoUserPassword;
 
-	@Column(nullable = false)
-	private String userEmail;
+	@Column(name = "ERGO_USER_EMAIL",nullable = false)
+	private String ergoUserEmail;
 
-	@Column(nullable = true)
-	private String userDesignation;
+	@Column(name ="ERGO_USER_ROLE",nullable = true)
+	private String ergoUserDesignation;
+
+	@Column(name = "IS_CUSTOMIZATION_ENABLED", nullable = false)
+	private Boolean isCustomized;
+	
+	@Column(name = "ERGO_USER_LOCATION", nullable = false)
+	private Boolean ergoUserLocation;
 }
