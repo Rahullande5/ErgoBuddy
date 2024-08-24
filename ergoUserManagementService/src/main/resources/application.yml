@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: ergoUserManagementService
+    name: ergo-user-management-service
 
   datasource:
     driver-class-name: org.postgresql.Driver

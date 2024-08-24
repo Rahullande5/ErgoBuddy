@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: ergoGateWayService
+    name: ergo-gateway-service
 
 eureka:
   client:
@@ -17,11 +17,11 @@ cloud:
     discovery:
       locator:
         enabled: true
-    routes:
-      - id: ergoUserManagementService
-        uri: lb://ergoUserManagementService
-        predicates:
-          - Path=/ergoBuddy/users/** 
-        filters:
-          - StripPrefix=1
+#    routes:
+#      - id: ergoUserManagementService
+#        uri: lb://ergoUserManagementService
+#        predicates:
+#          - Path=/ergoBuddy/users/** 
+#        filters:
+#          - StripPrefix=1
 

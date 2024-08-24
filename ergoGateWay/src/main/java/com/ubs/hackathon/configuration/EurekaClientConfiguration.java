@@ -23,4 +23,5 @@ public class EurekaClientConfiguration {
 	 Jersey3TransportClientFactories jersey3TransportClientFactories() {
 	    return Jersey3TransportClientFactories.getInstance();
 	}
+	
 }
