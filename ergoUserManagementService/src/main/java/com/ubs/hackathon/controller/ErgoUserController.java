@@ -3,6 +3,7 @@ package com.ubs.hackathon.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import com.ubs.hackathon.model.UserDetails;
 import com.ubs.hackathon.service.ErgoUserService;
 
 import jakarta.validation.Valid;
+
 
 @RestController
 @RequestMapping("/ergoBuddy/users")
@@ -59,5 +61,10 @@ public class ErgoUserController {
 	public ResponseEntity<Void> deleteUser(@PathVariable Long gpnID) {
 		ergoUserService.deleteErgoUserById(gpnID);
 		return ResponseEntity.noContent().build();
+	}
+
+	@GetMapping("/healthCheck")
+	public String healthCheck() {
+		return "It is up and running!";
 	}
 }
