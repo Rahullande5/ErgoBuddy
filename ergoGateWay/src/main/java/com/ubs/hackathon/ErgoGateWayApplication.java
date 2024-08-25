@@ -11,5 +11,4 @@ public class ErgoGateWayApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ErgoGateWayApplication.class, args);
 	}
-
 }

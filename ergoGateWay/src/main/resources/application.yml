@@ -4,26 +4,34 @@ server:
 spring:
   application:
     name: ergo-gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+      routes:
+        - id: ergo-user-management-service
+          uri: lb://ergo-user-management-service
+          predicates:
+          - Path=/ergoBuddy/users/**
 
 eureka:
   instance:
     hostname: localhost
+    prefer-ip-address: true
   client:
     service-url:
       defaultZone: http://${eureka.instance.hostname}:8761/eureka/
     fetch-registry: true
     register-with-eureka: true
 
-cloud:
-  gateway:
-    discovery:
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
       enabled: true
-      locator:
-        enabled: true
-        lower-case-service-id: true
-
-    routes:
-      - id: ergo-user-management-service
-        uri: http://localhost:9187/ergoBuddy/users
-        predicates:
-          - Path=/ergoBuddy/users/**
