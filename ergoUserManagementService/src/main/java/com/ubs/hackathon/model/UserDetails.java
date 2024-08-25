@@ -1,10 +1,14 @@
 package com.ubs.hackathon.model;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,9 +41,6 @@ public class UserDetails {
 	@Column(name = "ERGO_USER_LOCATION", nullable = false)
 	private Boolean ergoUserLocation;
 	
-	@Column(name = "ERGO_USER_MESSAGE",nullable = false)
-	private String userCustomizedMessage;
-	
-	@Column(name = "ERGO_USER_FREQUENCY",nullable = false)
-	private String ergoUserFrequency;
+    @OneToMany(mappedBy = "userDetails", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ErgoUserActivities> ergoUserActivities;
 }
