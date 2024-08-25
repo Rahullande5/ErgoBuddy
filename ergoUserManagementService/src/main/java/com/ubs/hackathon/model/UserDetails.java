@@ -36,4 +36,10 @@ public class UserDetails {
 	
 	@Column(name = "ERGO_USER_LOCATION", nullable = false)
 	private Boolean ergoUserLocation;
+	
+	@Column(name = "ERGO_USER_MESSAGE",nullable = false)
+	private String userCustomizedMessage;
+	
+	@Column(name = "ERGO_USER_FREQUENCY",nullable = false)
+	private String ergoUserFrequency;
 }
