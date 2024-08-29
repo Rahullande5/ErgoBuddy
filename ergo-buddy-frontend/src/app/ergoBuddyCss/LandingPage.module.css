@@ -1,0 +1,144 @@
+/* Container should occupy the full viewport height */
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden; /* Prevent overflow */
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  background-color: #f9fafb;
+}
+
+/* Main content area should expand to fill available space */
+.main {
+  flex: 1; /* Grow to fill available space between header and footer */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  overflow-y: auto; /* Allow scrolling within main content if needed */
+}
+
+.hero {
+  position: relative;
+  text-align: center;
+  margin-bottom: 30px;
+  background-image: url('/images/hero-background.jpg'); /* Background image */
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  padding: 40px 20px;
+  border-radius: 8px;
+  overflow: hidden; /* To prevent overflow of the overlay */
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(28, 61, 90, 0.7); /* Dark overlay with transparency */
+  z-index: 1; /* Make sure overlay is behind text */
+}
+
+.hero h2,
+.hero p {
+  position: relative;
+  z-index: 2; /* Ensure text is above overlay */
+}
+
+.hero h2 {
+  font-size: 2.5em; /* Increased font size */
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Add subtle shadow */
+}
+
+.hero p {
+  font-size: 1.2em; /* Increased font size */
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4); /* Add subtle shadow */
+}
+
+.ctaButton {
+  background-color: #ffc107;
+  color: #1c3d5a;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+  position: relative;
+  z-index: 2; /* Ensure button is above overlay */
+}
+
+.ctaButton:hover {
+  background-color: #ffa000;
+}
+
+.features {
+  background-color: #e3e8ec;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.featureList {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.featureItem {
+  max-width: 250px;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.featureItem:hover {
+  transform: translateY(-5px);
+}
+
+.about, .contact {
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.contactButton {
+  background-color: #ffc107;
+  color: #1c3d5a;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.contactButton:hover {
+  background-color: #ffa000;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .hero h2 {
+    font-size: 2em;
+  }
+
+  .hero p {
+    font-size: 1em;
+  }
+
+  .featureList {
+    flex-direction: column; /* Stack features vertically on smaller screens */
+  }
+}

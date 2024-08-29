@@ -10,7 +10,7 @@ import ergobuddy from '../../images/ergoBuddy_converted.jpg'; // Adjust the path
 import Header from '../header/header';
 import Footer from '../footer/footer';
 
-const SignUpComponent = () => {
+const SignInComponent = () => {
   const [gpnID, setGpnID] = useState<number | string>(''); // Allow string to manage incomplete input
   const [ergoUserName, setErgoUserName] = useState<string>('');
   const [ergoUserEmail, setErgoUserEmail] = useState<string>('');
@@ -73,7 +73,7 @@ const SignUpComponent = () => {
           {/* Right side with form */}
           <div className="flex flex-col justify-center p-8 bg-white">
             <div className="flex justify-center items-center mb-8">
-              <h1 className="text-3xl font-bold">Create New Ergo User</h1>
+              <h1 className="text-3xl font-bold">Welcome back! Ergo User</h1>
             </div>
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <input
@@ -156,4 +156,4 @@ const SignUpComponent = () => {
   );
 };
 
-export default SignUpComponent;
+export default SignInComponent;
