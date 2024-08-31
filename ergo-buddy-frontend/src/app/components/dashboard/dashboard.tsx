@@ -22,7 +22,7 @@ const initialTableData: TableRow[] = Array.from({ length: 20 }, (_, index) => ({
   ergoFrequency: `${Math.floor(Math.random() * 10) + 1} times/week`,
 }));
 
-const DashboardComponent: React.FC = () => {
+const DashboardComponent: React.FC = (props) => {
   const router = useRouter();
   const [isTextboxesEnabled, setIsTextboxesEnabled] = useState<boolean>(false); // Type-safe state for toggle
   const [tableData, setTableData] = useState<TableRow[]>(initialTableData); // Type-safe state for table data
