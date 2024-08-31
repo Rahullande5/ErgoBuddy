@@ -1,15 +1,146 @@
 /* Dashboard.module.css */
+
 .container {
-    padding: 20px;
-    margin-top: 60px; /* Adjust for fixed header */
-    margin-bottom: 60px; /* Adjust for fixed footer */
-  }
-  
-  .card {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-  }
-  
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+  margin-top: 50px; /* Adjust the margin to ensure title is visible */
+}
+
+.title {
+  font-family: Arial, sans-serif;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  margin-top: 20px; /* Increase margin-top for visibility */
+  position: relative; /* Make sure it's properly positioned */
+  z-index: 1; /* Ensure it appears above other elements */
+}
+
+.description {
+  font-family: Georgia, serif;
+  font-size: 1.5rem;
+  max-width: 800px;
+}
+
+.switchContainer {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 20px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 4px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(18px);
+}
+
+.switchLabel {
+  margin-left: 5px; /* Adjust the margin to move it left */
+  font-size: 1rem;
+}
+
+.tableContainer {
+  width: 90%;
+  max-height: 500px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  padding: 20px;
+  transition: all 0.3s ease;
+  margin-top: 20px; /* Ensure there is space between elements */
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.input {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  text-align: center;
+}
+
+.updateButton {
+  background-color: #4CAF50; /* Green background */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.updateButton:disabled {
+  background-color: #ddd; /* Grey background when disabled */
+  cursor: not-allowed;
+}
+
+.deleteButton {
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.deleteButton:hover {
+  background-color: #e60000;
+}
