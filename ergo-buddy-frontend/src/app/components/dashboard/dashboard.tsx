@@ -33,7 +33,12 @@ const DashboardComponent: React.FC = (props) => {
 
   const handleInputChange = (index: number, field: keyof TableRow, value: string) => {
     const updatedTableData = [...tableData];
-    updatedTableData[index][field] = value;
+      // Check the field type and parse the value if necessary
+      if (field === 'serialNo') {
+        updatedTableData[index][field] = Number(value) as any; // Convert string to number
+      } else {
+        updatedTableData[index][field] = value as any; // Assign the value directly for other fields
+      }
     setTableData(updatedTableData); // Update the state with the new value
   };
 
@@ -50,7 +55,7 @@ const DashboardComponent: React.FC = (props) => {
       {/* Main Content for Dashboard */}
       <div className={styles.container}>
         <h2 className={styles.title}>Activity Dashboard</h2>
-       
+         {JSON.stringify(props)}
         <p className={styles.description}>
           You can manage your activities, monitor your ergonomic performance, and access various features to enhance your workplace experience.
         </p>
