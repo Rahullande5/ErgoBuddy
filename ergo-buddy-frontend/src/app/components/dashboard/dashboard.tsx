@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Header from '../header/header';
 import Footer from '../footer/footer';
@@ -14,18 +14,43 @@ interface TableRow {
   ergoFrequency: string;
 }
 
-// Initialize sample data
-const initialTableData: TableRow[] = Array.from({ length: 20 }, (_, index) => ({
-  serialNo: index + 1,
-  ergoType: `ErgoType ${index + 1}`,
-  ergoDescription: `Description for ErgoType ${index + 1}`,
-  ergoFrequency: `${Math.floor(Math.random() * 10) + 1} times/week`,
-}));
+// Function to get initial data from session storage or fallback to default
+const getInitialTableData = (): TableRow[] => {
+  const storedData = sessionStorage.getItem('responseData');
+  if (storedData) {
+    try {
+      const parsedData = JSON.parse(storedData);
+      // Validate if the parsed data is in the expected format
+      if (Array.isArray(parsedData.ergoUserActivities)) {
+        return parsedData.map((item:any, index:number) => ({
+          serialNo: index + 1, // Ensure serialNo is present
+          ergoType: item.userActivityType,
+          ergoDescription: item.userActivityDescription,
+          ergoFrequency: item.userActivityFrequency,
+        }));
+      }
+    } catch (error) {
+      console.error('Error parsing stored data:', error);
+    }
+  }
+  // Fallback to initial sample data if no valid stored data
+  return Array.from({ length: 20 }, (_, index) => ({
+    serialNo: index + 1,
+    ergoType: `ErgoType ${index + 1}`,
+    ergoDescription: `Description for ErgoType ${index + 1}`,
+    ergoFrequency: `${Math.floor(Math.random() * 10) + 1} times/week`,
+  }));
+};
 
 const DashboardComponent: React.FC = (props) => {
   const router = useRouter();
   const [isTextboxesEnabled, setIsTextboxesEnabled] = useState<boolean>(false); // Type-safe state for toggle
-  const [tableData, setTableData] = useState<TableRow[]>(initialTableData); // Type-safe state for table data
+  const [tableData, setTableData] = useState<TableRow[]>([]); // Initialize table data as an empty array
+
+  // Load initial data from session storage when the component mounts
+  useEffect(() => {
+    setTableData(getInitialTableData());
+  }, []);
 
   const handleSliderChange = () => {
     setIsTextboxesEnabled((prevState) => !prevState); // Toggle the textboxes' enabled/disabled state
@@ -33,12 +58,12 @@ const DashboardComponent: React.FC = (props) => {
 
   const handleInputChange = (index: number, field: keyof TableRow, value: string) => {
     const updatedTableData = [...tableData];
-      // Check the field type and parse the value if necessary
-      if (field === 'serialNo') {
-        updatedTableData[index][field] = Number(value) as any; // Convert string to number
-      } else {
-        updatedTableData[index][field] = value as any; // Assign the value directly for other fields
-      }
+    // Check the field type and parse the value if necessary
+    if (field === 'serialNo') {
+      updatedTableData[index][field] = Number(value) as any; // Convert string to number
+    } else {
+      updatedTableData[index][field] = value as any; // Assign the value directly for other fields
+    }
     setTableData(updatedTableData); // Update the state with the new value
   };
 
@@ -55,7 +80,7 @@ const DashboardComponent: React.FC = (props) => {
       {/* Main Content for Dashboard */}
       <div className={styles.container}>
         <h2 className={styles.title}>Activity Dashboard</h2>
-         {JSON.stringify(props)}
+        {JSON.stringify(props)}
         <p className={styles.description}>
           You can manage your activities, monitor your ergonomic performance, and access various features to enhance your workplace experience.
         </p>
