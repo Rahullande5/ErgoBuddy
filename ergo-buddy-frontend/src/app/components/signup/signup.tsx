@@ -3,35 +3,50 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createUser } from '../../services/apiServices';
-import Image from 'next/image'; // Import the Image component from Next.js
-import ergobuddy from '../../images/ergoBuddy_converted.jpg'; // Adjust the path based on your project structure
+import Image from 'next/image';
+import ergobuddy from '../../images/ergoBuddy_converted.jpg';
 
 // Import the Header and Footer components
 import Header from '../header/header';
 import Footer from '../footer/footer';
 
+// Define the array of options for user designation
+const designationOptions = [
+  'Software Engineer',
+  'Product Manager',
+  'Data Scientist',
+  'UX/UI Designer',
+  'DevOps Engineer',
+  'Project Manager',
+  'QA Tester',
+  'Business Analyst',
+  'System Administrator',
+  'Network Engineer',
+  // Add more designations as needed
+];
+
 const SignUpComponent = () => {
   const [formData, setFormData] = useState({
-    gpnID: '' as number | string, // Allow string to manage incomplete input
+    gpnID: '' as number | string, 
     ergoUserName: '',
     ergoUserEmail: '',
     ergoUserPassword: '',
     ergoUserDesignation: '',
     isCustomized: false,
     ergoUserLocation: '',
-    error: null as string | null, // State to handle errors
-    isLoading: false, // Loading state for better UX
+    error: null as string | null,
+    isLoading: false, 
   });
 
   const router = useRouter();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
 
     setFormData((prevData) => ({
       ...prevData,
       [name]: name === 'isCustomized' ? e.target.checked : value,
-      error: null, // Clear error when typing
+      error: null, 
     }));
   };
 
@@ -97,7 +112,7 @@ const SignUpComponent = () => {
     setFormData((prevData) => ({ ...prevData, isLoading: true, isCustomized: false }));
 
     try {
-     const responseData = await createUser({
+      const responseData = await createUser({
         gpnID: Number(formData.gpnID),
         ergoUserName: formData.ergoUserName,
         ergoUserEmail: formData.ergoUserEmail,
@@ -106,7 +121,8 @@ const SignUpComponent = () => {
         isCustomized: formData.isCustomized,
         ergoUserLocation: formData.ergoUserLocation,
       });
-      if(responseData.data!==null){
+
+      if(responseData.data !== null){
         const queryString = new URLSearchParams(JSON.stringify(responseData.data)).toString();
         router.push(`/dashboard?${queryString}`);   
       }  
@@ -193,16 +209,23 @@ const SignUpComponent = () => {
                 className="p-2 border border-gray-300 rounded"
                 aria-label="Ergo Password"
               />
-              <input
+              <select
                 name="ergoUserDesignation"
-                type="text"
                 value={formData.ergoUserDesignation}
                 onChange={handleChange}
-                placeholder="Ergo User Designation"
                 required
                 className="p-2 border border-gray-300 rounded"
                 aria-label="Ergo User Designation"
-              />
+              >
+                <option value="" disabled>
+                  Select Designation
+                </option>
+                {designationOptions.map((designation) => (
+                  <option key={designation} value={designation}>
+                    {designation}
+                  </option>
+                ))}
+              </select>
               <input
                 name="ergoUserLocation"
                 type="text"
