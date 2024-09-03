@@ -97,6 +97,7 @@ input:checked + .slider:before {
   width: 100%;
   border-collapse: collapse;
   font-family: Arial, sans-serif;
+  table-layout: fixed; /* Ensures that table width is fixed, and text wraps */
 }
 
 .table th,
@@ -104,6 +105,9 @@ input:checked + .slider:before {
   border: 1px solid #ddd;
   padding: 12px;
   text-align: center;
+  max-width: 200px; /* Adjust this width as needed */
+  word-wrap: break-word; /* Allows long words to be broken and wrap to next line */
+  white-space: normal; /* Ensures text will wrap to the next line */
 }
 
 .input {
