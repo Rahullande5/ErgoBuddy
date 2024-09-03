@@ -22,7 +22,7 @@ const getInitialTableData = (): TableRow[] => {
       const parsedData = JSON.parse(storedData);
       // Validate if the parsed data is in the expected format
       if (Array.isArray(parsedData.ergoUserActivities)) {
-        return parsedData.map((item:any, index:number) => ({
+        return parsedData.map((item: any, index: number) => ({
           serialNo: index + 1, // Ensure serialNo is present
           ergoType: item.userActivityType,
           ergoDescription: item.userActivityDescription,
@@ -72,6 +72,38 @@ const DashboardComponent: React.FC = (props) => {
     setTableData(updatedTableData); // Update the state to remove the selected row
   };
 
+  const handleAddRow = () => {
+    const newRow: TableRow = {
+      serialNo: tableData.length + 1,
+      ergoType: 'New ErgoType',
+      ergoDescription: 'New Description',
+      ergoFrequency: '1 time/week',
+    };
+    setTableData([...tableData, newRow]); // Add the new row to the table
+  };
+
+  const handleUpdateActivities = () => {
+    if (!isTextboxesEnabled) return; // Only proceed if editing is enabled
+
+    try {
+      // Convert table data to the desired format (if necessary)
+      const updatedData = tableData.map((item) => ({
+        userActivityType: item.ergoType,
+        userActivityDescription: item.ergoDescription,
+        userActivityFrequency: item.ergoFrequency,
+      }));
+
+      // Update the session storage with the new data
+      sessionStorage.setItem('responseData', JSON.stringify({ ergoUserActivities: updatedData }));
+
+      // Optional: Provide feedback to the user (e.g., alert or toast notification)
+      alert('Activities updated successfully!');
+    } catch (error) {
+      console.error('Error updating activities:', error);
+      alert('Failed to update activities. Please try again.');
+    }
+  };
+
   return (
     <>
       {/* Include Header at the top */}
@@ -102,6 +134,7 @@ const DashboardComponent: React.FC = (props) => {
         <button
           className={styles.updateButton}
           disabled={!isTextboxesEnabled} // Button is enabled only when the slider is active
+          onClick={handleUpdateActivities} // Call the update handler function
         >
           Update Activities
         </button>
@@ -158,6 +191,15 @@ const DashboardComponent: React.FC = (props) => {
                     />
                   </td>
                   <td>
+                    {/* Add Button */}
+                    <button
+                      onClick={handleAddRow}
+                      className={styles.addButton} // Optional: style the add button
+                    >
+                      Add
+                    </button>
+                    <br />
+                    {/* Delete Button */}
                     <button
                       onClick={() => handleDeleteRow(index)}
                       className={styles.deleteButton} // Optional: style the delete button
